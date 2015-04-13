@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1428964901 source:c:\work\c++\hw1\main.cpp
+	<iostream>
+	"parser.h"
+	<cassert>
+
+1428964166 c:\work\c++\hw1\parser.h
+	<string>
+	<vector>
+
+1428965295 source:c:\work\c++\hw1\parser.cpp
+	"parser.h"
+	<cstring>
+	<string>
+	<cstdlib>
+	<cstdio>
+	<cctype>
+	<stdexcept>
+
