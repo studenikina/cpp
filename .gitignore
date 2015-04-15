@@ -1,2 +1,8 @@
+# CodeBlocks Projects
+hw1/bin
+hw1/obj
+*.cbp
+*.layout
+
+# Binaries
 bin
-obj

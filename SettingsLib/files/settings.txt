@@ -1,0 +1,15 @@
+# Main
+
+first_name  =   "Elizaveta"
+second_name =   "Studenikina"
+age         =   19
+
+# Education
+
+university  =   "NRU ITMO"
+department  =   "ITIP"
+chair       =   "KT"
+
+# Other
+
+loves_cpp   =   true
