@@ -1,10 +1,5 @@
-//
-// Created by creed on 13.05.15.
-//
-
 #ifndef CPP_UTIL_H
 #define CPP_UTIL_H
-
 
 #include <string>
 

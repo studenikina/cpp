@@ -1,9 +1,7 @@
-#include "Util.h"
-
-
 #ifndef _UTIL_H_
 #define _UTIL_H_
 
+#include "Util.h"
 #include <iostream>
 #include <cmath>
 #include <sstream>
