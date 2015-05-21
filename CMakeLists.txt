@@ -16,3 +16,9 @@ set(SOURCE_FILES ServiceManagerLib/service_manager.cpp ServiceManagerLib/queue.h
 add_library(servicemanager SHARED ${SOURCE_FILES})
 add_executable(servicemanagerMain ServiceManagerLib/main.cpp ServiceManagerLib/writer_service.cpp)
 target_link_libraries(servicemanagerMain servicemanager settings)
+
+
+# Unit Tests
+set(SOURCE_FILES Tester/tester.cpp)
+add_executable(tester ${SOURCE_FILES})
+target_link_libraries(tester settings)
