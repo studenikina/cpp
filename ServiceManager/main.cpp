@@ -11,7 +11,7 @@ using namespace std;
 
 const int MAX_OPTIONS = (int)4e3;
 const int THREAD_COUNT = 4;
-const char* PATH = "../ServiceManagerLib/files/threads.txt";
+const char* PATH = "../files/threads.txt";
 
 void generate_settings(vector<string>& options, int thread_count = THREAD_COUNT, int options_max = MAX_OPTIONS) {
     FILE *f = nullptr;

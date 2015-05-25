@@ -5,7 +5,7 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-    settings settings1("../SettingsLib/files/settings.txt");
+    settings settings1("../files/settings.txt");
     settings1.reset();
     settings1.reload();
     vector <string> params = {"first_name", "second_name", "age"};

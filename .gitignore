@@ -5,4 +5,5 @@ hw1/obj
 *.layout
 
 # Binaries
-bin
+*bin
+*.idea

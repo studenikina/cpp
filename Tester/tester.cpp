@@ -36,7 +36,7 @@ public:
 };
 
 void test_profile_settings() {
-    settings profile("../Tester/files/profile.txt");
+    settings profile("../files/profile.txt");
     assert(profile.get("first_name","") == "Elizaveta");
     assert(profile.get("second_name","") == "Studenikina");
     assert(int(profile["age"]) == 19);
@@ -49,7 +49,7 @@ void test_profile_settings() {
 }
 
 void test_random_settings() {
-    settings random("../Tester/files/random.txt");
+    settings random("../files/random.txt");
     vector <string> s = {
             "journey",
             "chamber",
@@ -78,10 +78,10 @@ void test_random_settings() {
 }
 
 void test_big_settings() {
-    settings big("../Tester/files/big.txt");
+    settings big("../files/big.txt");
 
     vector <string> options;
-    int MAX_OPTIONS = 2015;
+    int MAX_OPTIONS = 4000;
     int THREAD_COUNT = 4;
     for(int t = 0; t < THREAD_COUNT; t++) {
         for(int i = 0; i < MAX_OPTIONS; i++) {
