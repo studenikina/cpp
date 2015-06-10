@@ -3,12 +3,12 @@
 #include <iostream>
 #include "writer_service.h"
 
-writer_service::writer_service(int current_thread, int options_count, const std::string& name) :
+writer_service::writer_service(int current_thread, int options_count, const std::string& name, std::map<std::string, bool>& check) :
         curent_thread(current_thread),
         options_count(options_count),
         name(name),
-        running(false) {
-
+        running(false),
+        check(check) {
 }
 
 writer_service::~writer_service() {
@@ -22,7 +22,6 @@ void writer_service::setup(std::shared_ptr<settings>const& sets, std::shared_ptr
 }
 
 void writer_service::run() {
-    //std::cout << "service - " << name << " started\n";
     if (this->m_settings == nullptr) {
         throw new std::runtime_error("pointer to settings instance didn't define");
     } else if (this->m_service_manager == nullptr) {
@@ -35,12 +34,15 @@ void writer_service::run() {
             for(int i = 0; running && i < options_count; i++) {
                 opt = prefix+std::to_string(i + 1);
                 mutex.lock();
-                m_service_manager->inc_count();
-                m_settings->set(opt, this->name);
+                    if (check[opt]) {
+                        throw new std::runtime_error("recalling option");
+                    }
+                    check[opt] = true;
+                    m_settings->set(opt, this->name);
                 mutex.unlock();
             }
+            return;
         });
-        //runner.join();
     } else {
         throw new std::runtime_error("service["+this->name+"]: is already running");
     }
@@ -48,7 +50,10 @@ void writer_service::run() {
 
 void writer_service::shutdown() {
     running = false;
-    runner.join();
+    if (runner.joinable()) {
+        std::cout << "service - join()\n";
+        runner.join();
+    }
 }
 
 bool writer_service::is_running() {

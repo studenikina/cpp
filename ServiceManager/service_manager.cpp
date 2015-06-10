@@ -4,8 +4,7 @@
 service_manager::service_manager(std::shared_ptr<settings> const &settings) :
         m_settings(settings),
         num_threads(1),
-        running(false),
-        fields_filled(0) {
+        running(false) {
 
 }
 
@@ -25,6 +24,7 @@ void service_manager::run_service(const std::shared_ptr<service>& service) {
 
 void service_manager::start() {
     if (!running) {
+        printf("service_manager - start()\n");
         running = true;
 
         mutex.lock();
@@ -34,12 +34,15 @@ void service_manager::start() {
         mutex.unlock();
 
         for(int i = 0; i < this->num_threads; i++) {
-            threads.push_back(std::thread([this]()-> void{
+            threads.push_back(std::thread([this, i]()-> void{
+                printf("thread%d - start()\n", i);
+                mutex.lock();
                 while(running) {
                     task_t tsk = tasks.pop();
                     //std::cout << "runs - " << std::this_thread::get_id() << std::endl;
                     tsk();
                 }
+                mutex.unlock();
             }));
         }
     } else {
@@ -48,21 +51,23 @@ void service_manager::start() {
 }
 
 void service_manager::shutdown() {
-    if (running) {
-        running = false;
-
+    printf("service_manager - shutdown()\n");
+    if (!running) {
         for(int i = 0; i < (int)services.size(); i++) {
             services[i]->shutdown();
         }
 
         for(int i = 0; i < (int)threads.size(); i++) {
             if (threads[i].joinable()) {
+                std::cout << "thread" << i << " - join()\n";
                 threads[i].join();
+            } else {
+                std::cout << " bad thread" << i << " - join()\n";
             }
 
         }
     } else {
-        //throw new std::runtime_error("instance of service_manager is not running");
+        throw new std::runtime_error("instance of service_manager is still running");
     }
 }
 
@@ -87,14 +92,4 @@ bool service_manager::is_running() {
 
 void service_manager::set_running(bool value) {
     running = value;
-}
-
-/* Methods for quick checking progress */
-
-void service_manager::inc_count() {
-    fields_filled++;
-}
-
-int service_manager::get_count() {
-    return fields_filled;
 }

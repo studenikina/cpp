@@ -15,7 +15,7 @@
 
 class writer_service : public service {
 public:
-    writer_service(int current_thread, int options_count, const std::string& name);
+    writer_service(int current_thread, int options_count, const std::string& name, std::map<std::string, bool>&);
     ~writer_service();
     void setup(std::shared_ptr<settings>const& sets, std::shared_ptr<service_manager> const& manager);
     void run();
@@ -37,6 +37,7 @@ private:
     bool running;
 
     std::thread runner;
+    std::map<std::string, bool>& check;
 };
 
 

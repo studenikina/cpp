@@ -5,8 +5,9 @@
 #include <mutex>
 #include <thread>
 #include <condition_variable>
-#include "../SettingsLib/settings.h"
+#include <map>
 #include "queue.h"
+#include "../SettingsLib/settings.h"
 
 
 class service_manager;
@@ -37,8 +38,6 @@ public:
     /* helpers */
     bool is_running();
     void set_running(bool value);
-    void inc_count();
-    int get_count();
 
     //Bonus
     void save_config();
@@ -60,8 +59,6 @@ private:
 
     std::vector<std::thread> threads;
     queue<task_t> tasks;
-
-    int fields_filled; //count of fields already writed by services (for indicating)
 };
 
 #endif //CPP_SERVICEMANAGER_H
